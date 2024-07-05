@@ -1,0 +1,11 @@
+services:
+  zookeeper:
+    image: zookeeper
+    container_name: my_zookeeper
+    restart: always
+  
+  kafka:
+    image: apache/kafka
+    container_name: my_kafkaserver
+    depends_on:
+      - zookeeper
