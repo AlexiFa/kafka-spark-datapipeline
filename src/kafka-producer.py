@@ -2,6 +2,9 @@ from kafka import KafkaProducer
 
 producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
-producer.send('test', value=b'Hello, World!')
+messages = [('key3', 'value3'), ('key4', 'value4')]
 
+for key, value in messages:
+    producer.send('new', key=key.encode(), value=value.encode())
 producer.flush()
+print('All messages sent.')

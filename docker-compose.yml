@@ -3,9 +3,21 @@ services:
     image: zookeeper
     container_name: my_zookeeper
     restart: always
+    ports:
+      - "2181:2181"
+    networks:
+      - networkName
   
   kafka:
     image: apache/kafka
     container_name: my_kafkaserver
     depends_on:
       - zookeeper
+    restart: always
+    ports:
+      - "9092:9092"
+    networks:
+      - networkName
+
+networks:
+  networkName:
