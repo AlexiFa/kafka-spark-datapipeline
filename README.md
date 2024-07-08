@@ -14,11 +14,22 @@ cd kafka-spark-datapipeline
 Start zookeeper and kafka server
 
 ```bash
-sudo docker compose up -d
+docker compose up -d
 ```
 
 Create a topic in kafka
 
 ```bash
-sudo docker exec -it my_kafkaserver /opt/kafka/bin/kafka-topics.sh --create --topic new --bootstrap-server localhost:9092
+docker exec -it my_kafkaserver /opt/kafka/bin/kafka-topics.sh --create --topic new --bootstrap-server localhost:9092
+```
+
+Create table in the database
+
+```bash
+docker exec -it my_postgres psql -h localhost -U myuser -d mydatabase -c "
+CREATE TABLE transactions (
+  transaction_id VARCHAR PRIMARY KEY,
+  amount FLOAT,
+  timestamp TIMESTAMPTZ
+);"
 ```
