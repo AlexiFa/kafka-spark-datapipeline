@@ -22,7 +22,7 @@ Create a topic in kafka
 ```bash
 docker exec -it my_kafkaserver /opt/kafka/bin/kafka-topics.sh --create --topic new --bootstrap-server localhost:9092
 ```
-
+<!-- 
 Create table in the database
 
 ```bash
@@ -32,4 +32,16 @@ CREATE TABLE transactions (
   amount FLOAT,
   timestamp TIMESTAMPTZ
 );"
+``` -->
+
+Run the consumer
+
+```bash
+python src/consumer.py
+```
+
+Run the producer
+
+```bash
+python src/producer.py
 ```
