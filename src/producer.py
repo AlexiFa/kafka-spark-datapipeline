@@ -3,7 +3,7 @@ import json
 import time
 import csv
 
-csv_file_path = 'data/sanitaires-reseau-ratp.csv'
+csv_file_path = 'trafic-annuel-entrant-par-station-du-reseau-ferre-2021.csv'
 
 producer = KafkaProducer(
     bootstrap_servers='localhost:9092',

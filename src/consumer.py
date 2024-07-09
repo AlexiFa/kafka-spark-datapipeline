@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-table_name = 'sanitaire'
+table_name = 'trafic'
 # Configurer le consommateur Kafka
 consumer = KafkaConsumer(
     'new',
@@ -40,11 +40,18 @@ for message in consumer:
     # Convertir le message en DataFrame Pandas
     df = pd.DataFrame([message.value])
     
-    # Effectuer ici tout traitement nécessaire sur df
-    # Par exemple :
-    # df['amount'] = df['amount'] * 2
+    # Nettoyage des données
+    # Supprimer les colonnes non intéressantes
+    columns_to_keep = ['Station', 'Trafic', 'Réseau', 'Ville', 'Arrondissement pour Paris']
+    df = df[columns_to_keep]
+    
+    # Suppression des lignes avec des valeurs manquantes dans les colonnes importantes
+    df.dropna(subset=['Station', 'Trafic'], inplace=True)
+    
+    
     
     # Écrire dans PostgreSQL
+    df.to_sql('transactions', engine, if_exists='append', index=False)
     df.to_sql(table_name, engine, if_exists='append', index=False)
     
     print(f"Processed and wrote message: {message.value}")
