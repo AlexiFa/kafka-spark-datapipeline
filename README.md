@@ -45,3 +45,15 @@ Run the producer
 ```bash
 python src/producer.py
 ```
+
+in docker postgres
+
+```bash
+psql -h localhost -U myuser -d mydatabase
+```
+
+then
+
+```sql
+select * from trafic;
+```
