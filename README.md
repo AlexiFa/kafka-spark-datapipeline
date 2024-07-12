@@ -1,6 +1,8 @@
-# kafka-spark-datapipeline
+# kafka-pandas-datapipeline
 
-From relational to non-relational database project at EFREI Paris
+From relational to non-relational database project at EFREI Paris.
+
+Pipeline that takes data from a csv file, send it through a kafka topic, process it with pandas and then store it in a postgres database.
 
 ## Usage
 
@@ -10,6 +12,15 @@ Clone the repo
 git clone https://github.com/AlexiFa/kafka-spark-datapipeline.git
 cd kafka-spark-datapipeline
 ```
+### On windows
+
+Open powershell and run
+
+```bash
+.\stript.ps1
+```
+
+### On other
 
 Start zookeeper and kafka server
 
@@ -22,17 +33,6 @@ Create a topic in kafka
 ```bash
 docker exec -it my_kafkaserver /opt/kafka/bin/kafka-topics.sh --create --topic new --bootstrap-server localhost:9092
 ```
-<!-- 
-Create table in the database
-
-```bash
-docker exec -it my_postgres psql -h localhost -U myuser -d mydatabase -c "
-CREATE TABLE transactions (
-  transaction_id VARCHAR PRIMARY KEY,
-  amount FLOAT,
-  timestamp TIMESTAMPTZ
-);"
-``` -->
 
 Run the consumer
 
@@ -46,14 +46,24 @@ Run the producer
 python src/producer.py
 ```
 
-in docker postgres
+in the postgres container
 
 ```bash
 psql -h localhost -U myuser -d mydatabase
 ```
 
-then
+then to see the data stored
 
 ```sql
 select * from trafic;
 ```
+
+## Monitoring
+
+Run in your terminal
+
+```bash
+streamlit run .\trafic_dashboard.py
+```
+
+You will see the data with some graphs on the local port display by the program
